@@ -118,8 +118,10 @@ class Plugin extends PluginBase
         });
 
         \Cms\Classes\Page::extend(function($model){
-            $model->translatable =  array_merge($model->translatable, $this->seoFieldsToTranslate());
-            //$model->addDynamicProperty('translatable', $this->seoFieldsToTranslate() + 'title' ); 
+            if (property_exists($model, 'translatable')) {
+                $model->translatable =  array_merge($model->translatable, $this->seoFieldsToTranslate());
+                //$model->addDynamicProperty('translatable', $this->seoFieldsToTranslate() + 'title' ); 
+            }
         });
     }
     private function seoFieldsToTranslate(){
